@@ -8,6 +8,7 @@ import { useFavoriteCities } from '../hooks/useFavoriteCities';
 import { getPersonalizedRecommendations } from '../utils/outfitRecommendations';
 import { getStylistRecommendation } from '../utils/stylistRecommendations';
 import { MoodType } from '../utils/moods';
+import { useAnalytics } from '../hooks/useAnalytics';
 import { ColorType } from '../utils/colorAnalysis';
 import MoodOfTheDay from '../components/MoodOfTheDay';
 import StylistRecommendationCard from '../components/StylistRecommendationCard';
@@ -437,6 +438,9 @@ const Weather: React.FC = () => {
   const [selectedMood, setSelectedMood] = useState<MoodType | null>(null);
   const [showStylistMode, setShowStylistMode] = useState(false);
   const [colorType, setColorType] = useState<ColorType | null>(user?.colorType || null);
+
+  // Отслеживание посещений
+  useAnalytics('Weather Page');
   const [showColorAnalyzer, setShowColorAnalyzer] = useState(false);
 
   useEffect(() => {

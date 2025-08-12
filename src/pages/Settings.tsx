@@ -4,7 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../contexts/ThemeContext';
 import { useFavoriteCities } from '../hooks/useFavoriteCities';
 import { useWeatherHistory } from '../hooks/useWeatherHistory';
+import { useAnalytics } from '../hooks/useAnalytics';
 import Navigation from '../components/Navigation';
+import Analytics from '../components/Analytics';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -143,6 +145,9 @@ const Settings: React.FC = () => {
   const { favorites, removeFavorite } = useFavoriteCities();
   const { clearHistory, history } = useWeatherHistory();
 
+  // Отслеживание посещений
+  useAnalytics('Settings Page');
+
   if (!user?.isRegistered) {
     navigate('/');
     return null;
@@ -221,6 +226,8 @@ const Settings: React.FC = () => {
               </Button>
             </SettingGroup>
           </SettingsCard>
+
+          <Analytics />
         </Content>
       </Container>
   );
