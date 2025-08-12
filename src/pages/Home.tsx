@@ -7,10 +7,21 @@ import { getMoodIcon, MOODS, MoodType } from '../utils/moods';
 
 const HomeContainer = styled.div`
   min-height: 100vh;
-  background: transparent;
-  font-family: 'M PLUS Rounded 1c', sans-serif;
+  background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
   position: relative;
-  overflow-x: hidden;
+  font-family: 'Nunito', sans-serif;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%);
+    pointer-events: none;
+  }
 `;
 
 const MainContent = styled.main`
@@ -18,36 +29,43 @@ const MainContent = styled.main`
   padding-top: 100px;
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 `;
 
 const WelcomeSection = styled.div`
   text-align: center;
   margin-bottom: 3rem;
-  color: white;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+  text-shadow: 0 0 20px rgba(120, 119, 198, 0.5);
 `;
 
 const WelcomeTitle = styled.h1`
-  font-family: 'Comfortaa', cursive;
-  font-size: 3rem;
-  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 800;
   margin: 0 0 1rem 0;
-  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(45deg, #ffffff, #7777c6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
   
   @media (max-width: 768px) {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
   }
 `;
 
 const WelcomeSubtitle = styled.p`
-  font-size: 1.2rem;
-  opacity: 0.95;
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.8);
   margin: 0;
   font-weight: 400;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+  font-family: 'Nunito', sans-serif;
   
   @media (max-width: 768px) {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 `;
 
@@ -59,42 +77,58 @@ const DashboardGrid = styled.div`
 `;
 
 const Card = styled.div`
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(15, 15, 30, 0.8);
   border-radius: 20px;
   padding: 2rem;
-  box-shadow: 0 8px 32px rgba(116, 185, 255, 0.15);
-  border: 1px solid rgba(116, 185, 255, 0.2);
-  backdrop-filter: blur(10px);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(120, 119, 198, 0.3);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #7777c6, #ff77c6);
+  }
   
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 40px rgba(116, 185, 255, 0.25);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(120, 119, 198, 0.4);
+    border-color: rgba(120, 119, 198, 0.5);
   }
 `;
 
 const CardIcon = styled.div`
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
   text-align: center;
+  filter: drop-shadow(0 0 10px rgba(120, 119, 198, 0.5));
 `;
 
 const CardTitle = styled.h3`
-  font-family: 'Comfortaa', cursive;
-  color: #2d3748;
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin: 0 0 0.5rem 0;
+  font-family: 'Nunito', sans-serif;
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
   text-align: center;
+  text-shadow: 0 0 15px rgba(120, 119, 198, 0.5);
 `;
 
 const CardDescription = styled.p`
-  color: #4a5568;
-  font-size: 0.95rem;
-  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  line-height: 1.6;
   margin: 0;
   text-align: center;
+  font-family: 'Nunito', sans-serif;
 `;
 
 const MoodGrid = styled.div`

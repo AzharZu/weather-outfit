@@ -127,49 +127,78 @@ const Container = styled.div`
   max-width: 700px;
   margin: 0 auto;
   padding: 2rem;
-  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-family: 'Nunito', sans-serif;
   min-height: 100vh;
-  background: transparent;
+  background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%);
+    pointer-events: none;
+  }
 `;
 
 const Header = styled.h1`
-  font-size: 2.5rem;
-  font-weight: 700;
+  font-size: 2.8rem;
+  font-weight: 800;
   text-align: center;
   margin-bottom: 2rem;
-  color: #4a90e2;
-  font-family: 'Comfortaa', sans-serif;
-  text-shadow: 0 2px 4px rgba(74, 144, 226, 0.2);
+  background: linear-gradient(45deg, #ffffff, #7777c6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: 'Nunito', sans-serif;
+  position: relative;
+  z-index: 1;
 `;
 
 const TabBar = styled.div`
   display: flex;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 15px;
+  background: rgba(15, 15, 30, 0.8);
+  border-radius: 20px;
   padding: 8px;
   margin-bottom: 2rem;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(116, 185, 255, 0.2);
-  box-shadow: 0 4px 20px rgba(116, 185, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(120, 119, 198, 0.3);
+  position: relative;
+  z-index: 1;
 `;
 
 const TabButton = styled.button<{ active: boolean }>`
   flex: 1;
   padding: 12px 20px;
   border: none;
-  background: ${props => props.active ? 'linear-gradient(45deg, #74b9ff, #a29bfe)' : 'transparent'};
-  color: ${props => props.active ? '#ffffff' : '#4a90e2'};
-  font-weight: ${props => props.active ? '600' : '500'};
-  border-radius: 12px;
+  background: ${props => props.active ? 'linear-gradient(45deg, #7777c6, #ff77c6)' : 'transparent'};
+  color: ${props => props.active ? '#ffffff' : 'rgba(255, 255, 255, 0.7)'};
+  font-weight: ${props => props.active ? '700' : '500'};
+  border-radius: 15px;
   cursor: pointer;
-  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 1rem;
   transition: all 0.3s ease;
-  box-shadow: ${props => props.active ? '0 4px 15px rgba(116, 185, 255, 0.4)' : 'none'};
+  box-shadow: ${props => props.active ? '0 8px 25px rgba(120, 119, 198, 0.4)' : 'none'};
+  
+  &:hover {
+    background: ${props => props.active ? 
+      'linear-gradient(45deg, #7777c6, #ff77c6)' : 
+      'rgba(120, 119, 198, 0.2)'
+    };
+    color: #ffffff;
+  }
 
   &:hover {
-    background: ${props => props.active ? 'linear-gradient(45deg, #74b9ff, #a29bfe)' : 'rgba(116, 185, 255, 0.1)'};
-    transform: translateY(-2px);
+    background: ${props => props.active ? 
+      'linear-gradient(45deg, #7777c6, #ff77c6)' : 
+      'rgba(120, 119, 198, 0.2)'
+    };
+    color: #ffffff;
   }
 `;
 
@@ -177,12 +206,14 @@ const Form = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(15, 15, 30, 0.8);
   padding: 2rem;
   border-radius: 20px;
-  border: 1px solid rgba(116, 185, 255, 0.2);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 32px rgba(116, 185, 255, 0.15);
+  border: 1px solid rgba(120, 119, 198, 0.3);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  position: relative;
+  z-index: 1;
 `;
 
 const Field = styled.div`
@@ -193,26 +224,32 @@ const Field = styled.div`
 const FieldLabel = styled.label`
   margin-bottom: 8px;
   font-weight: 600;
-  font-size: 0.95rem;
-  color: #2d3748;
-  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 1rem;
+  color: #ffffff;
+  font-family: 'Nunito', sans-serif;
+  text-shadow: 0 0 10px rgba(120, 119, 198, 0.5);
 `;
 
 const FieldInput = styled.input`
   padding: 14px 18px;
-  border: 2px solid rgba(116, 185, 255, 0.2);
-  border-radius: 12px;
+  border: 2px solid rgba(120, 119, 198, 0.3);
+  border-radius: 15px;
   font-size: 1rem;
-  font-family: 'M PLUS Rounded 1c', sans-serif;
-  background: rgba(255, 255, 255, 0.8);
-  color: #2d3748;
+  font-family: 'Nunito', sans-serif;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
   transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
 
   &:focus {
     outline: none;
-    border-color: #74b9ff;
-    box-shadow: 0 0 0 3px rgba(116, 185, 255, 0.1);
-    background: rgba(255, 255, 255, 1);
+    border-color: #7777c6;
+    box-shadow: 0 0 20px rgba(120, 119, 198, 0.3);
+    background: rgba(255, 255, 255, 0.15);
   }
 `;
 

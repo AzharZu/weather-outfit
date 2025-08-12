@@ -11,14 +11,29 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   min-height: 100vh;
-  background: ${(props: any) => props.theme?.background || '#fafafa'};
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+  font-family: 'Nunito', sans-serif;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%);
+    pointer-events: none;
+  }
 `;
 
 const Content = styled.div`
   padding: 2rem;
   max-width: 800px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
   
   @media (max-width: 768px) {
     padding: 1rem;
@@ -26,12 +41,13 @@ const Content = styled.div`
 `;
 
 const SettingsCard = styled.div`
-  background: ${(props: any) => props.theme?.surface || '#ffffff'};
-  border-radius: 16px;
+  background: rgba(15, 15, 30, 0.8);
+  border-radius: 20px;
   padding: 2rem;
   margin-bottom: 2rem;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-  border: 1px solid ${(props: any) => props.theme?.border || '#dbdbdb'};
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(120, 119, 198, 0.3);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
   
   @media (max-width: 768px) {
     padding: 1.5rem;
