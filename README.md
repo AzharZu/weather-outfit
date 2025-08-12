@@ -23,5 +23,3 @@
 - **Роутинг:** React Router DOM
 - **Шрифты:** Nunito, M PLUS Rounded 1c, Comfortaa
 - **Эффекты:** CSS backdrop-filter, градиенты, анимации
-
-# weather-outfit
