@@ -5,33 +5,50 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   min-height: 100vh;
-  background: transparent;
+  background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-family: 'Nunito', sans-serif;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%);
+    pointer-events: none;
+  }
 `;
 
 const Form = styled.form`
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(15, 15, 30, 0.8);
   border-radius: 20px;
   padding: 3rem;
   width: 100%;
   max-width: 450px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(116, 185, 255, 0.2);
-  box-shadow: 0 8px 32px rgba(116, 185, 255, 0.15);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(120, 119, 198, 0.3);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  position: relative;
+  z-index: 1;
 `;
 
 const Title = styled.h2`
   text-align: center;
   margin-bottom: 2.5rem;
-  color: #4a90e2;
-  font-weight: 700;
-  font-size: 2.2rem;
-  font-family: 'Comfortaa', sans-serif;
-  text-shadow: 0 2px 4px rgba(74, 144, 226, 0.1);
+  background: linear-gradient(45deg, #ffffff, #7777c6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+  font-size: 2.5rem;
+  font-family: 'Nunito', sans-serif;
 `;
 
 const FormGroup = styled.div`
@@ -42,24 +59,35 @@ const Label = styled.label`
   display: block;
   margin-bottom: 8px;
   font-weight: 600;
-  color: #2d3748;
-  font-size: 0.95rem;
-  font-family: 'M PLUS Rounded 1c', sans-serif;
+  color: #ffffff;
+  font-size: 1rem;
+  font-family: 'Nunito', sans-serif;
+  text-shadow: 0 0 10px rgba(120, 119, 198, 0.5);
 `;
 
 const Input = styled.input`
   width: 100%;
   padding: 14px 18px;
-  border: 2px solid rgba(116, 185, 255, 0.2);
-  border-radius: 12px;
+  border: 2px solid rgba(120, 119, 198, 0.3);
+  border-radius: 15px;
   font-size: 1rem;
   box-sizing: border-box;
-  background: rgba(255, 255, 255, 0.8);
-  color: #2d3748;
-  font-family: 'M PLUS Rounded 1c', sans-serif;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-family: 'Nunito', sans-serif;
   transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
   
   &:focus {
+    outline: none;
+    border-color: #7777c6;
+    box-shadow: 0 0 20px rgba(120, 119, 198, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+  }
     outline: none;
     border-color: #74b9ff;
     box-shadow: 0 0 0 3px rgba(116, 185, 255, 0.1);
@@ -69,27 +97,28 @@ const Input = styled.input`
 
 const Button = styled.button`
   width: 100%;
-  background: linear-gradient(45deg, #74b9ff, #a29bfe);
+  background: linear-gradient(45deg, #7777c6, #ff77c6);
   color: white;
   border: none;
   padding: 16px;
-  border-radius: 12px;
+  border-radius: 15px;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 1.1rem;
-  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-family: 'Nunito', sans-serif;
   margin-bottom: 1rem;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(116, 185, 255, 0.4);
+  box-shadow: 0 8px 25px rgba(120, 119, 198, 0.4);
   
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(116, 185, 255, 0.6);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(120, 119, 198, 0.6);
   }
   
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+    transform: none;
   }
 `;
 

@@ -6,12 +6,25 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   min-height: 100vh;
-  background: transparent;
+  background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
   padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-family: 'Nunito', sans-serif;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%);
+    pointer-events: none;
+  }
 `;
 
 const Hero = styled.div`
@@ -19,15 +32,19 @@ const Hero = styled.div`
   color: #ffffff;
   margin-bottom: 3rem;
   max-width: 600px;
+  position: relative;
+  z-index: 1;
 `;
 
 const Title = styled.h1`
-  font-size: 4rem;
+  font-size: 4.5rem;
   margin-bottom: 1rem;
-  font-weight: 700;
-  font-family: 'Comfortaa', sans-serif;
-  color: #ffffff;
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  font-weight: 800;
+  font-family: 'Nunito', sans-serif;
+  background: linear-gradient(45deg, #ffffff, #7777c6, #ff77c6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   
   @media (max-width: 768px) {
     font-size: 3rem;
@@ -35,19 +52,25 @@ const Title = styled.h1`
 `;
 
 const Subtitle = styled.p`
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   margin-bottom: 2rem;
-  color: #e8e8e8;
+  color: rgba(255, 255, 255, 0.8);
   line-height: 1.6;
   font-weight: 400;
-  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-family: 'Nunito', sans-serif;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
 `;
 
 const AuthSection = styled.div`
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(15, 15, 30, 0.8);
   border-radius: 20px;
   padding: 2.5rem;
   margin-bottom: 2rem;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(120, 119, 198, 0.3);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  position: relative;
+  z-index: 1;
   text-align: center;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(116, 185, 255, 0.2);
