@@ -1,177 +1,291 @@
-import React from 'react';
-import { useUser } from '../context/UserContext';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navigation from '../components/Navigation';
+import { useUser } from '../contexts/UserContext';
 import styled from 'styled-components';
+import Navigation from '../components/Navigation';
+import { getMoodIcon, MOODS, MoodType } from '../utils/moods';
 
-const Container = styled.div`
+const HomeContainer = styled.div`
   min-height: 100vh;
-  background: linear-gradient(120deg, #6fa8dc 0%, #8b7ed8 50%, #c27ba0 100%);
+  background: transparent;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  position: relative;
+  overflow-x: hidden;
 `;
 
-const Content = styled.div`
-  padding: 25px;
-  max-width: 1100px;
+const MainContent = styled.main`
+  padding: 2rem;
+  padding-top: 100px;
+  max-width: 1200px;
   margin: 0 auto;
 `;
 
-const WelcomeCard = styled.div`
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 12px;
-  padding: 28px;
-  margin-bottom: 30px;
+const WelcomeSection = styled.div`
   text-align: center;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  margin-bottom: 3rem;
+  color: white;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 `;
 
-const Title = styled.h1`
-  color: #333;
-  margin-bottom: 1rem;
-`;
-
-const UserInfo = styled.div`
-  background: #f7fafc;
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-`;
-
-const InfoRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5rem;
+const WelcomeTitle = styled.h1`
+  font-family: 'Comfortaa', cursive;
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
   
-  &:last-child {
-    margin-bottom: 0;
+  @media (max-width: 768px) {
+    font-size: 2.2rem;
   }
 `;
 
-const InfoLabel = styled.span`
-  font-weight: 600;
-  color: #4a5568;
+const WelcomeSubtitle = styled.p`
+  font-size: 1.2rem;
+  opacity: 0.95;
+  margin: 0;
+  font-weight: 400;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
 `;
 
-const InfoValue = styled.span`
+const DashboardGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+`;
+
+const Card = styled.div`
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(116, 185, 255, 0.15);
+  border: 1px solid rgba(116, 185, 255, 0.2);
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(116, 185, 255, 0.25);
+  }
+`;
+
+const CardIcon = styled.div`
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+`;
+
+const CardTitle = styled.h3`
+  font-family: 'Comfortaa', cursive;
   color: #2d3748;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  text-align: center;
+`;
+
+const CardDescription = styled.p`
+  color: #4a5568;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+  text-align: center;
+`;
+
+const MoodGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+`;
+
+const MoodCard = styled.div<{ $isSelected?: boolean }>`
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  border: 2px solid ${props => props.$isSelected ? '#4a90e2' : 'rgba(116, 185, 255, 0.2)'};
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-3px);
+    border-color: #4a90e2;
+    box-shadow: 0 8px 25px rgba(74, 144, 226, 0.2);
+    background: rgba(255, 255, 255, 1);
+  }
+`;
+
+const MoodIcon = styled.div`
+  font-size: 2rem;
+  margin-bottom: 0.8rem;
+`;
+
+const MoodTitle = styled.h3`
+  font-family: 'Comfortaa', cursive;
+  color: #2d3748;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
 `;
 
 const QuickActions = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin-top: 2rem;
+  gap: 1.5rem;
+  margin: 3rem 0;
 `;
 
-const ActionCard = styled.div`
-  background: white;
-  border-radius: 12px;
+const ActionButton = styled.button`
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(116, 185, 255, 0.3);
+  border-radius: 15px;
   padding: 1.5rem;
-  text-align: center;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #2d3748;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
   
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    background: rgba(255, 255, 255, 1);
+    border-color: #4a90e2;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(74, 144, 226, 0.2);
+    color: #4a90e2;
+  }
+  
+  &:active {
+    transform: translateY(0);
   }
 `;
 
-const ActionIcon = styled.div`
-  font-size: 3rem;
-  margin-bottom: 1rem;
-`;
-
-const ActionTitle = styled.h3`
-  color: #333;
-  margin-bottom: 0.5rem;
-`;
-
-const ActionDescription = styled.p`
-  color: #666;
-  font-size: 0.9rem;
+const ActionIcon = styled.span`
+  font-size: 1.5rem;
 `;
 
 const Home: React.FC = () => {
   const { user } = useUser();
   const navigate = useNavigate();
+  const [selectedMood, setSelectedMood] = useState<MoodType>('business-lady');
 
-  // проверяем есть ли юзер
-  if (!user?.isRegistered) {
-    navigate('/');
-    return null;
-  }
-
-  // функция для стиля (casual или elegant)
-  const getStyleText = (style: string) => {
-    return style === 'casual' ? 'Обычный' : 'Стильный';
-  };
-
-  // функция для пола
-  const getGenderText = (gender: string) => {
-    switch(gender) {
-      case 'male': return 'М';
-      case 'female': return 'Ж';
-      default: return 'Другое';
+  const handleQuickAction = (action: string) => {
+    switch (action) {
+      case 'weather':
+        navigate('/weather');
+        break;
+      case 'wardrobe':
+        navigate('/profile');
+        break;
+      case 'history':
+        navigate('/outfit-history');
+        break;
+      case 'settings':
+        navigate('/settings');
+        break;
     }
   };
 
-  return (
-    <Container>
-      <Navigation />
-      <Content>
-        <WelcomeCard>
-          <Title>Привет, {user.name}! 👋</Title>
-          <p>Готов узнать что надеть сегодня?</p>
-        </WelcomeCard>
+  const dashboardItems = [
+    {
+      icon: '🌤️',
+      title: 'Weather Forecast',
+      description: 'Check current weather and get outfit recommendations',
+      action: 'weather'
+    },
+    {
+      icon: '👕',
+      title: 'My Wardrobe',
+      description: 'Manage your clothing items and color preferences',
+      action: 'wardrobe'
+    },
+    {
+      icon: '📚',
+      title: 'Outfit History',
+      description: 'View your previous outfit choices and favorites',
+      action: 'history'
+    },
+    {
+      icon: '⚙️',
+      title: 'Settings',
+      description: 'Customize your preferences and notifications',
+      action: 'settings'
+    }
+  ];
 
-        <UserInfo>
-          <h3 style={{ marginBottom: '15px', color: '#333' }}>Твой профиль</h3>
-          <InfoRow>
-            <InfoLabel>Имя:</InfoLabel>
-            <InfoValue>{user.name}</InfoValue>
-          </InfoRow>
-          <InfoRow>
-            <InfoLabel>Пол:</InfoLabel>
-            <InfoValue>{getGenderText(user.gender)}</InfoValue>
-          </InfoRow>
-          <InfoRow>
-            <InfoLabel>Стиль:</InfoLabel>
-            <InfoValue>{getStyleText(user.style)}</InfoValue>
-          </InfoRow>
-          <InfoRow>
-            <InfoLabel>Город:</InfoLabel>
-            <InfoValue>{user.city}</InfoValue>
-          </InfoRow>
-        </UserInfo>
+  return (
+    <HomeContainer>
+      <Navigation />
+      <MainContent>
+        <WelcomeSection>
+          <WelcomeTitle>
+            Добро пожаловать{user?.name ? `, ${user.name}` : ''}! 🌟
+          </WelcomeTitle>
+          <WelcomeSubtitle>
+            Создайте идеальный образ с учетом погоды и вашего настроения
+          </WelcomeSubtitle>
+        </WelcomeSection>
+
+        <DashboardGrid>
+          {dashboardItems.map((item, index) => (
+            <Card key={index} onClick={() => handleQuickAction(item.action)}>
+              <CardIcon>{item.icon}</CardIcon>
+              <CardTitle>{item.title}</CardTitle>
+              <CardDescription>{item.description}</CardDescription>
+            </Card>
+          ))}
+        </DashboardGrid>
+
+        <WelcomeSection style={{ marginTop: '3rem' }}>
+          <WelcomeTitle style={{ fontSize: '2rem' }}>
+            Выберите настроение дня 🎭
+          </WelcomeTitle>
+          <WelcomeSubtitle>
+            Мы подберем идеальный стиль под ваше настроение
+          </WelcomeSubtitle>
+        </WelcomeSection>
+
+        <MoodGrid>
+          {MOODS.map((mood) => (
+            <MoodCard
+              key={mood.id}
+              $isSelected={selectedMood === mood.id}
+              onClick={() => setSelectedMood(mood.id)}
+            >
+              <MoodIcon>{getMoodIcon(mood.id)}</MoodIcon>
+              <MoodTitle>{mood.name}</MoodTitle>
+            </MoodCard>
+          ))}
+        </MoodGrid>
 
         <QuickActions>
-          <ActionCard onClick={() => navigate('/weather')}>
-            <ActionIcon>🌤️</ActionIcon>
-            <ActionTitle>Погода</ActionTitle>
-            <ActionDescription>
-              Узнай что надеть по погоде в твоем городе
-            </ActionDescription>
-          </ActionCard>
-
-          <ActionCard onClick={() => navigate('/profile')}>
-            <ActionIcon>⚙️</ActionIcon>
-            <ActionTitle>Настройки</ActionTitle>
-            <ActionDescription>
-              Изменить свои данные
-            </ActionDescription>
-          </ActionCard>
-
-          <ActionCard onClick={() => navigate('/weather')}>
-            <ActionIcon>🗺️</ActionIcon>
-            <ActionTitle>Другой город</ActionTitle>
-            <ActionDescription>
-              Проверить погоду в другом месте
-            </ActionDescription>
-          </ActionCard>
+          <ActionButton onClick={() => navigate('/weather')}>
+            <ActionIcon>🌈</ActionIcon>
+            Получить рекомендации
+          </ActionButton>
+          <ActionButton onClick={() => navigate('/profile')}>
+            <ActionIcon>🎨</ActionIcon>
+            Цветотип
+          </ActionButton>
+          <ActionButton onClick={() => navigate('/outfit-history')}>
+            <ActionIcon>📚</ActionIcon>
+            История образов
+          </ActionButton>
         </QuickActions>
-      </Content>
-    </Container>
+      </MainContent>
+    </HomeContainer>
   );
 };
 

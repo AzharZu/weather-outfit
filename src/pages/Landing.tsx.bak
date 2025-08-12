@@ -1,0 +1,175 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useUser } from '../context/UserContext';
+import { useTheme } from '../context/ThemeContext';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+`;
+
+const Content = styled.div`
+  text-align: center;
+  color: white;
+  max-width: 600px;
+`;
+
+const Title = styled.h1`
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  font-weight: 800;
+`;
+
+const Subtitle = styled.p`
+  font-size: 1.3rem;
+  margin-bottom: 3rem;
+  opacity: 0.9;
+  line-height: 1.6;
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+`;
+
+const Button = styled.button`
+  padding: 1rem 2.5rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &.primary {
+    background: rgba(255, 255, 255, 0.95);
+    color: #667eea;
+  }
+  
+  &.secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+  }
+  
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  }
+`;
+
+const Landing: React.FC = () => {
+  const navigate = useNavigate();
+  const { user } = useUser();
+
+  React.useEffect(() => {
+    if (user?.isRegistered) {
+      navigate('/home');
+    }
+  }, [user, navigate]);
+
+  return (
+    <Container>
+      <Content>
+        <Title>WeatherFit ✨</Title>
+        <Subtitle>
+          Ваш персональный AI-стилист, который поможет выбрать идеальный образ под любую погоду
+        </Subtitle>
+        
+        <ButtonGroup>
+          <Button className="primary" onClick={() => navigate('/register')}>
+            🚀 Начать путешествие
+          </Button>
+          <Button className="secondary" onClick={() => navigate('/login')}>
+            👋 Войти
+          </Button>
+        </ButtonGroup>
+      </Content>
+    </Container>
+  );
+};
+
+export default Landing;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+`;
+
+const FeatureTitle = styled.h3`
+  color: white;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+`;
+
+const FeatureDescription = styled.p`
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  line-height: 1.5;
+`;
+
+const Landing: React.FC = () => {
+  const navigate = useNavigate();
+  const { user } = useUser();
+
+  React.useEffect(() => {
+    if (user?.isRegistered) {
+      navigate('/home');
+    }
+  }, [user, navigate]);
+
+  return (
+    <Container>
+      <Content>
+        <Title>WeatherFit ✨</Title>
+        <Subtitle>
+          Ваш персональный AI-стилист, который поможет выбрать идеальный образ под любую погоду
+        </Subtitle>
+        
+        <ButtonGroup>
+          <Button className="primary" onClick={() => navigate('/register')}>
+            🚀 Начать путешествие
+          </Button>
+          <Button className="secondary" onClick={() => navigate('/login')}>
+            👋 Уже с нами? Войти
+          </Button>
+        </ButtonGroup>
+
+        <FeaturesList>
+          <Feature>
+            <FeatureIcon>🌤️</FeatureIcon>
+            <FeatureTitle>Точная погода</FeatureTitle>
+            <FeatureDescription>
+              Актуальные данные о погоде в вашем городе и персональные рекомендации
+            </FeatureDescription>
+          </Feature>
+          
+          <Feature>
+            <FeatureIcon>👗</FeatureIcon>
+            <FeatureTitle>AI-стилист</FeatureTitle>
+            <FeatureDescription>
+              Умная система подбора одежды с учётом вашего стиля и цветотипа
+            </FeatureDescription>
+          </Feature>
+          
+          <Feature>
+            <FeatureIcon>🎨</FeatureIcon>
+            <FeatureTitle>Цветотип</FeatureTitle>
+            <FeatureDescription>
+              Определите свой цветотип и получите идеальную палитру цветов
+            </FeatureDescription>
+          </Feature>
+        </FeaturesList>
+      </Content>
+    </Container>
+  );
+};
+
+export default Landing;
+export default Landing;

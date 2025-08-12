@@ -1,30 +1,37 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useUser } from '../context/UserContext';
+import { useUser } from '../contexts/UserContext';
 import styled from 'styled-components';
 
 const Container = styled.div`
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
 `;
 
 const Form = styled.form`
-  background: white;
-  border-radius: 15px;
-  padding: 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 3rem;
   width: 100%;
-  max-width: 400px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  max-width: 450px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(116, 185, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(116, 185, 255, 0.15);
 `;
 
 const Title = styled.h2`
   text-align: center;
-  margin-bottom: 2rem;
-  color: #333;
+  margin-bottom: 2.5rem;
+  color: #4a90e2;
+  font-weight: 700;
+  font-size: 2.2rem;
+  font-family: 'Comfortaa', sans-serif;
+  text-shadow: 0 2px 4px rgba(74, 144, 226, 0.1);
 `;
 
 const FormGroup = styled.div`
@@ -33,56 +40,75 @@ const FormGroup = styled.div`
 
 const Label = styled.label`
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
   font-weight: 600;
-  color: #333;
+  color: #2d3748;
+  font-size: 0.95rem;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
 `;
 
 const Input = styled.input`
   width: 100%;
-  padding: 12px;
-  border: 2px solid #e2e8f0;
-  border-radius: 8px;
-  font-size: 16px;
+  padding: 14px 18px;
+  border: 2px solid rgba(116, 185, 255, 0.2);
+  border-radius: 12px;
+  font-size: 1rem;
   box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.8);
+  color: #2d3748;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  transition: all 0.3s ease;
   
   &:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #74b9ff;
+    box-shadow: 0 0 0 3px rgba(116, 185, 255, 0.1);
+    background: rgba(255, 255, 255, 1);
   }
 `;
 
 const Button = styled.button`
   width: 100%;
-  background: #667eea;
+  background: linear-gradient(45deg, #74b9ff, #a29bfe);
   color: white;
   border: none;
-  padding: 12px;
-  border-radius: 8px;
+  padding: 16px;
+  border-radius: 12px;
   cursor: pointer;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 1.1rem;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
   margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(116, 185, 255, 0.4);
   
   &:hover {
-    background: #5a67d8;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(116, 185, 255, 0.6);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 `;
 
 const BackLink = styled.button`
   width: 100%;
   background: transparent;
-  color: #667eea;
-  border: 2px solid #667eea;
-  padding: 12px;
-  border-radius: 8px;
+  color: #6a7aa0;
+  border: 1px solid rgba(116, 185, 255, 0.3);
+  padding: 14px;
+  border-radius: 12px;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 500;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  transition: all 0.3s ease;
   
   &:hover {
-    background: #667eea;
-    color: white;
-  }
+    background: rgba(116, 185, 255, 0.1);
+    color: #4a90e2;
+    transform: translateY(-2px);
 `;
 
 const Login: React.FC = () => {
@@ -106,6 +132,7 @@ const Login: React.FC = () => {
     const mockUser = {
       id: Date.now().toString(),
       name: 'Пользователь',
+      email: 'user@example.com',
       gender: 'male' as const,
       style: 'casual' as const,
       city: 'Санкт-Петербург',
@@ -123,10 +150,10 @@ const Login: React.FC = () => {
   return (
     <Container>
       <Form onSubmit={handleSubmit}>
-        <Title>Вход</Title>
+        <Title>🌸 Вход</Title>
         
         <FormGroup>
-          <Label>Email</Label>
+          <Label>✉️ Email</Label>
           <Input
             type="email"
             name="email"
@@ -138,7 +165,7 @@ const Login: React.FC = () => {
         </FormGroup>
 
         <FormGroup>
-          <Label>Пароль</Label>
+          <Label>🔐 Пароль</Label>
           <Input
             type="password"
             name="password"
@@ -149,9 +176,9 @@ const Login: React.FC = () => {
           />
         </FormGroup>
 
-        <Button type="submit">Войти</Button>
+        <Button type="submit">Войти ✨</Button>
         <BackLink type="button" onClick={() => navigate('/')}>
-          Вернуться на главную
+          ← Вернуться на главную
         </BackLink>
       </Form>
     </Container>

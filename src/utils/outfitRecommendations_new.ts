@@ -1,4 +1,4 @@
-import { User } from '../contexts/UserContext';
+import { User } from '../context/UserContext';
 import { WeatherData } from '../services/weatherService';
 
 export interface OutfitRecommendation {

@@ -1,30 +1,46 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useUser } from '../context/UserContext';
+import { useUser } from '../contexts/UserContext';
 import styled from 'styled-components';
 
 const Container = styled.div`
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
 `;
 
 const Form = styled.form`
-  background: white;
-  border-radius: 15px;
-  padding: 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 3rem;
   width: 100%;
-  max-width: 400px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  max-width: 500px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(116, 185, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(116, 185, 255, 0.15);
 `;
 
 const Title = styled.h2`
   text-align: center;
-  margin-bottom: 2rem;
-  color: #333;
+  margin-bottom: 2.5rem;
+  color: #4a90e2;
+  font-weight: 700;
+  font-size: 2.2rem;
+  font-family: 'Comfortaa', sans-serif;
+  text-shadow: 0 2px 4px rgba(74, 144, 226, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  
+  &::before {
+    content: '✨';
+    font-size: 1.5rem;
+  }
 `;
 
 const FormGroup = styled.div`
@@ -33,70 +49,124 @@ const FormGroup = styled.div`
 
 const Label = styled.label`
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
   font-weight: 600;
-  color: #333;
+  color: #4a90e2;
+  font-size: 1rem;
+  font-family: 'Comfortaa', cursive;
 `;
 
 const Input = styled.input`
   width: 100%;
-  padding: 12px;
-  border: 2px solid #e2e8f0;
-  border-radius: 8px;
-  font-size: 16px;
+  padding: 0.9rem 1.2rem;
+  border: 2px solid rgba(116, 185, 255, 0.3);
+  border-radius: 15px;
+  font-size: 1rem;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
   box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  transition: all 0.3s ease;
   
   &:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #74b9ff;
+    box-shadow: 0 0 0 3px rgba(116, 185, 255, 0.1);
+    background: rgba(255, 255, 255, 1);
+  }
+  
+  &::placeholder {
+    color: #999;
+    font-style: italic;
   }
 `;
 
 const Select = styled.select`
   width: 100%;
-  padding: 12px;
-  border: 2px solid #e2e8f0;
-  border-radius: 8px;
-  font-size: 16px;
+  padding: 0.9rem 1.2rem;
+  border: 2px solid rgba(116, 185, 255, 0.3);
+  border-radius: 15px;
+  font-size: 1rem;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
   box-sizing: border-box;
-  background: white;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  transition: all 0.3s ease;
+  cursor: pointer;
   
   &:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #74b9ff;
+    box-shadow: 0 0 0 3px rgba(116, 185, 255, 0.1);
+    background: rgba(255, 255, 255, 1);
   }
 `;
-
 const Button = styled.button`
   width: 100%;
-  background: #667eea;
+  background: linear-gradient(135deg, #74b9ff, #4a90e2);
   color: white;
   border: none;
-  padding: 12px;
-  border-radius: 8px;
+  padding: 1rem;
+  border-radius: 15px;
   cursor: pointer;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 1.1rem;
+  font-family: 'Comfortaa', cursive;
   margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(116, 185, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   
   &:hover {
-    background: #5a67d8;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(116, 185, 255, 0.4);
+    background: linear-gradient(135deg, #4a90e2, #74b9ff);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  &::before {
+    content: '🎉';
+    font-size: 1rem;
   }
 `;
 
 const BackLink = styled.button`
   width: 100%;
-  background: transparent;
-  color: #667eea;
-  border: 2px solid #667eea;
-  padding: 12px;
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.7);
+  color: #4a90e2;
+  border: 2px solid rgba(116, 185, 255, 0.3);
+  padding: 0.9rem;
+  border-radius: 15px;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 500;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   
   &:hover {
-    background: #667eea;
-    color: white;
+    background: rgba(116, 185, 255, 0.1);
+    border-color: #74b9ff;
+    transform: translateY(-1px);
+  }
+  
+  &::before {
+    content: '🏠';
+    font-size: 1rem;
   }
 `;
 
@@ -106,6 +176,7 @@ const Register: React.FC = () => {
   
   const [formData, setFormData] = useState({
     name: '',
+    email: '',
     gender: 'male' as 'male' | 'female' | 'other',
     style: 'casual' as 'casual' | 'elegant',
     city: ''
@@ -114,7 +185,7 @@ const Register: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.name || !formData.city) {
+    if (!formData.name || !formData.email || !formData.city) {
       alert('Пожалуйста, заполните все поля');
       return;
     }
@@ -122,6 +193,7 @@ const Register: React.FC = () => {
     const newUser = {
       id: Date.now().toString(),
       name: formData.name,
+      email: formData.email,
       gender: formData.gender,
       style: formData.style,
       city: formData.city,
@@ -142,7 +214,7 @@ const Register: React.FC = () => {
         <Title>Регистрация</Title>
         
         <FormGroup>
-          <Label>Как тебя зовут?</Label>
+          <Label>Как тебя зовут? 👋</Label>
           <Input
             type="text"
             name="name"
@@ -154,16 +226,28 @@ const Register: React.FC = () => {
         </FormGroup>
 
         <FormGroup>
-          <Label>Пол</Label>
+          <Label>Твоя почта 📧</Label>
+          <Input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="example@mail.com"
+            required
+          />
+        </FormGroup>
+
+        <FormGroup>
+          <Label>Пол 👤</Label>
           <Select name="gender" value={formData.gender} onChange={handleChange}>
-            <option value="male">М</option>
-            <option value="female">Ж</option>
+            <option value="male">Мужской</option>
+            <option value="female">Женский</option>
             <option value="other">Другое</option>
           </Select>
         </FormGroup>
 
         <FormGroup>
-          <Label>Какой стиль нравится?</Label>
+          <Label>Какой стиль нравится? 👗</Label>
           <Select name="style" value={formData.style} onChange={handleChange}>
             <option value="casual">Обычный (джинсы, футболки)</option>
             <option value="elegant">Стильный (красиво одеваюсь)</option>
@@ -171,7 +255,7 @@ const Register: React.FC = () => {
         </FormGroup>
 
         <FormGroup>
-          <Label>Твой город</Label>
+          <Label>Твой город 🏙️</Label>
           <Input
             type="text"
             name="city"
@@ -182,7 +266,9 @@ const Register: React.FC = () => {
           />
         </FormGroup>
 
-        <Button type="submit">Регистрация</Button>
+        <Button type="submit">
+          Регистрация
+        </Button>
         <BackLink type="button" onClick={() => navigate('/')}>
           Вернуться на главную
         </BackLink>

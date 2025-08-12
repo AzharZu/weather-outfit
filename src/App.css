@@ -68,3 +68,62 @@ button:focus, input:focus, select:focus {
   40% { transform: translateY(-10px); }
   60% { transform: translateY(-5px); }
 }
+
+/* Темная тема */
+.dark-theme {
+  background: linear-gradient(120deg, #2d3748 0%, #4a5568 50%, #553c9a 100%) !important;
+  color: #e2e8f0 !important;
+}
+
+.dark-theme .card,
+.dark-theme .weather-card,
+.dark-theme .profile-card {
+  background: #2d3748 !important;
+  color: #e2e8f0 !important;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4) !important;
+}
+
+.dark-theme input,
+.dark-theme select {
+  background: #4a5568 !important;
+  color: #e2e8f0 !important;
+  border-color: #718096 !important;
+}
+
+.dark-theme input::placeholder {
+  color: #a0aec0 !important;
+}
+
+/* Уведомления */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #48bb78;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 1000;
+  animation: slideIn 0.3s ease;
+}
+
+.notification.error {
+  background: #e53e3e;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Пульсация для важных элементов */
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
