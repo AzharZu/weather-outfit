@@ -24,13 +24,3 @@
 - **Шрифты:** Nunito, M PLUS Rounded 1c, Comfortaa
 - **Эффекты:** CSS backdrop-filter, градиенты, анимации
 
-## Настройка окружения
-
-Создайте файл `.env` в корне проекта (или обновите существующий) и укажите ключи:
-
-```
-REACT_APP_WEATHER_API_KEY=<ваш ключ OpenWeather>
-REACT_APP_GEMINI_API_KEY=<ваш ключ Google Gemini>
-```
-
-После изменения переменных перезапустите dev-сервер, чтобы React увидел новые значения.
