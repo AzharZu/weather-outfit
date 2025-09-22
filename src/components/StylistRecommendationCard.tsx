@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { StylistRecommendation } from '../utils/stylistRecommendations';
 
 const StylistCard = styled.div`
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+  background: linear-gradient(135deg, rgba(125, 70, 70, 0.32), rgba(255, 255, 255, 0.05));
   border-radius: 25px;
   padding: 2.5rem;
   margin: 2rem 0;
