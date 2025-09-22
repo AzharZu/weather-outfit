@@ -14,6 +14,7 @@ import MoodOfTheDay from '../components/MoodOfTheDay';
 import StylistRecommendationCard from '../components/StylistRecommendationCard';
 import ColorTypeAnalyzer from '../components/ColorTypeAnalyzer';
 import AIAssistant from '../components/AIAssistant';
+import OutfitChatBot from '../components/OutfitChatBot';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -702,6 +703,14 @@ const Weather: React.FC = () => {
           )}
         </WeatherCard>
       </Content>
+      {weather && (
+        <OutfitChatBot
+          user={user}
+          weather={weather}
+          colorType={colorType}
+          mood={selectedMood}
+        />
+      )}
     </Container>
   );
 };
